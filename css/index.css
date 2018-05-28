@@ -1,0 +1,184 @@
+body,
+ul,
+li,
+div,
+span,
+img {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    min-width: 1330px;
+    background: #9cbad3;
+}
+
+header {
+    width: 100%;
+    text-align: center;
+    /* color: white; */
+}
+
+h1>span {
+    color: rgb(209, 51, 51);
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.leftBar {
+    width: 15%;
+    float: left;
+}
+
+.leftBar ul {
+    margin: 0 auto;
+    width: 100%;
+    overflow: hidden;
+}
+
+.leftBar li {
+    display: block;
+    list-style: none;
+    background: white;
+    box-shadow: #3a3c3d;
+    line-height: 40px;
+    margin: 0 20px 10px 10px;
+    /* box-shadow: 5px 5px 5px #252525; */
+}
+
+.leftBar li>span {
+    display: block;
+    width: 100%;
+    cursor: pointer;
+}
+
+.leftBar li i {
+    margin-left: 30px;
+    margin-right: 10px;
+}
+
+#palette {
+    /* background: white; */
+    float: left;
+}
+
+#canvas {
+    background: white;
+    cursor: url("../img/pencil32.ico"), default;
+}
+
+.penBar,
+.color,
+.graph,
+.font {
+    background: #e0e3e6;
+    padding: 10px 20px 0 20px;
+}
+
+.penBar img {
+    width: 25px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.penBar>div {
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.size div {
+    display: inline-block;
+    margin-bottom: 5px;
+    background: black;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.size :nth-child(1) {
+    width: 5px;
+    height: 5px;
+}
+
+.size :nth-child(2) {
+    width: 10px;
+    height: 10px;
+}
+
+.size :nth-child(3) {
+    width: 15px;
+    height: 15px;
+}
+
+.colorBar>div {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+.colorBar div:nth-child(1) {
+    background: black;
+}
+
+.colorBar div:nth-child(2) {
+    background: white;
+}
+
+.colorBar div:nth-child(3) {
+    background: red;
+}
+
+.colorBar div:nth-child(4) {
+    background: orange;
+}
+
+.colorBar div:nth-child(5) {
+    background: yellow;
+}
+
+.colorBar div:nth-child(6) {
+    background: green;
+}
+
+.colorBar div:nth-child(7) {
+    background: cyan;
+}
+
+.colorBar div:nth-child(8) {
+    background: blue;
+}
+
+.colorBar div:nth-child(9) {
+    background: purple;
+}
+
+.colorBar div:nth-child(10) {
+    background: darkgrey;
+}
+
+.colorBar>p {
+    background: none;
+}
+
+.color input {
+    width: 100%;
+}
+
+.graph {
+    padding: 10px;
+}
+
+.graph img {
+    width: 30px;
+    margin-right: 10px;
+}

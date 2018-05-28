@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/brush.ico" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mini❤Palette</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+    <div>
+        <header>
+            <h1>Mini<span>❤</span>Palette</h1>
+        </header>
+        <div class="container">
+            <div class="leftBar">
+                <ul class="option">
+                    <li>
+                        <span><i class="fa fa-pencil"></i>笔刷</span>
+                        <div class="penBar">
+                            <div>
+                                <img src="./img/pencil32.ico" alt="">
+                                <img src="./img/brush32.ico" alt="">
+                                <img src="./img/dye.ico" alt="">
+                            </div>
+                            <div class="size">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span><i class="fa fa-paint-brush"></i>颜料盘</span>
+                        <div class="color">
+                            <div class="colorBar">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <input type="text" placeholder="自定义#000000">
+                        </div>
+                    </li>
+                    <li>
+                        <span><i class="fa fa-star-half-full"></i>图形板</span>
+                        <div class="graph">
+                            <img src="./img/circle.png" alt="">
+                            <img src="./img/rectangle.png" alt="">
+                            <img src="./img/square.png" alt="">
+                            <img src="./img/star.png" alt="">
+                            <img src="./img/heart.png" alt="">
+                        </div>
+                    </li>
+                    <li><span><i class="fa fa-font"></i>添加文字</span></li>
+                    <li><span><i class="fa fa-eraser"></i>橡皮擦</span></li>
+                    <li><span><i class="fa fa-window-maximize"></i>清空</span></li>
+                </ul>
+            </div>
+            <div id="palette">
+                <canvas id="canvas"></canvas>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./js/index.js"></script>
+<script src="./js/jqueryIndex.js"></script>
+
+</html>
