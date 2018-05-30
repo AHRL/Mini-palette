@@ -171,7 +171,15 @@ h1>span {
 }
 
 .color input {
-    width: 100%;
+    width: 98%;
+}
+
+.color span {
+    font-size: 12px;
+    color: rgb(36, 62, 95);
+    position: relative;
+    top: -10px;
+    display: none;
 }
 
 .graph {
@@ -181,4 +189,8 @@ h1>span {
 .graph img {
     width: 30px;
     margin-right: 10px;
+}
+
+.font textarea {
+    resize: none;
 }
