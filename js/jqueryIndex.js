@@ -1,67 +1,99 @@
-$(function() {
-    //笔刷
-    $('.penBar img').click(function() {
-        $('#myCanvas').css('cursor', 'url(' + $(this).attr('src') + '),default')
-    })
-    $('.size div').each(function(index) {
-            $(this).click(function() {
-                context.lineWidth = 1 + 5 * index
-            })
-        })
-        //颜料盘
-    $('.colorBar div').click(function() {
-        context.fillStyle = $(this).css('background-color')
-        context.strokeStyle = $(this).css('background-color')
-    })
-    var reg = /^#[0-9a-fA-F]{6}$/
-    $('.color input').blur(function() {
-            if (reg.test($(this).val())) {
-                context.fillStyle = $(this).val()
-                context.strokeStyle = $(this).val()
-                $('.color span').css('display', 'none')
-            } else {
-                $('.color span').css('display', 'block')
-            }
-        })
-        //图形板
-    $('.graph img').click(function() {
-        tintImage(this, "#000")
-    })
-
-    function tintImage(imgElement, tintColor) {
-        //创建隐藏的myCanvas(使用图像尺寸)
-        // var myCanvas = document.createElement("canvas");
-        // myCanvas.width = imgElement.offsetWidth;
-        // myCanvas.height = imgElement.offsetHeight;
-
-        // var context = myCanvas.getContext("2d");
-        context.drawImage(imgElement, 0, 0);
-
-        var map = context.getImageData(0, 0, 320, 240);
-        var imdata = map.data;
-
-        //将图像转换为灰度
-        var r, g, b, avg;
-        for (var p = 0, len = imdata.length; p < len; p += 4) {
-            r = imdata[p]
-            g = imdata[p + 1]
-            b = imdata[p + 2];
-            //忽略Alpha通道(p + 3)
-
-            avg = Math.floor((r + g + b) / 3);
-
-            imdata[p] = imdata[p + 1] = imdata[p + 2] = avg;
-        }
-
-        context.putImageData(map, 0, 0);
-
-        //使用较轻的组合覆盖填充矩形
-        // context.globalCompositeOperation = "lighter";
-        // context.globalAlpha = 0.5;
-        // context.fillStyle = tintColor;
-        context.fillRect(0, 0, imgElement.width, imgElement.height);
-
-        //用画布数据替换图像源
-        // imgElement.src = myCanvas.toDataURL();
+var curStyle = 'pencil';
+//笔刷
+function getstyle(obj, attr) {
+    return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj, null)[attr]; //通过三木运算符来获取当前style的属性  
+}
+var aImg = document.querySelector('.penBar').querySelectorAll('img')
+for (var i = 0, len = aImg.length; i < len; i++) {
+    aImg[i].index = i;
+    aImg[i].onclick = function() {
+        canvas.style.cursor = 'url(' + this.getAttribute('src') + '),default'
+        curStyle = this.index == 0 ? 'pencil' : curStyle;
+        // curStyle = this.index == 1 ? 'brush' : curStyle;
+        curStyle = this.index == 1 ? 'dye' : curStyle;
     }
-})
+}
+var aSizeDiv = document.querySelector('.size').querySelectorAll('div')
+for (var i = 0, len = aSizeDiv.length; i < len; i++) {
+    aSizeDiv[i].index = i
+    aSizeDiv[i].onclick = function() {
+        context.lineWidth = 1 + 5 * this.index
+    }
+}
+// 颜料盘
+var aColorDiv = document.querySelector('.colorBar').querySelectorAll('div')
+
+for (var i = 0, len = aColorDiv.length; i < len; i++) {
+    aColorDiv[i].onclick = function() {
+        context.fillStyle = getstyle(this, 'background-color')
+        context.strokeStyle = getstyle(this, 'background-color')
+    }
+}
+var reg = /^#[0-9a-fA-F]{6}$/
+var oColorInput = document.querySelector('.color').querySelector('input')
+var oColorSpan = document.querySelector('.color').querySelector('span')
+oColorInput.onblur = function() {
+        var val = this.value
+        if (reg.test(val)) {
+            context.fillStyle = val
+            context.strokeStyle = val
+            oColorSpan.style.display = 'none'
+        } else {
+            oColorSpan.style.display = 'block'
+        }
+    }
+    //图形板
+var aGraphImg = document.querySelector('.graph').querySelectorAll('img')
+var curGraph = []
+var graphFlag = 0
+for (var i = 0, len = aGraphImg.length; i < len; i++) {
+    aGraphImg[i].onclick = function() {
+        curStyle = i = 0 ? 'circle' : curStyle;
+        curStyle = i = 1 ? 'rectangle' : curStyle;
+        curStyle = i = 2 ? 'square' : curStyle;
+        var obj = context.drawImage(this, 100, 100)
+            // obj.disX = 0;
+            // obj.disY = 0;
+        console.log('a')
+        console.log(obj)
+        curGraph.push({ obj: obj, x: 100, y: 100 })
+    }
+}
+//橡皮擦
+var aEraser = document.querySelector('.eraser').querySelectorAll('img')
+for (var i = 0, len = aEraser.length; i < len; i++) {
+    aEraser[i].index = i
+    aEraser[i].onclick = function() {
+        canvas.style.cursor = 'url(./img/Square_' + (32 + this.index * 16) + 'px.ico),default'
+    }
+}
+//撤销
+var cancelList = []
+var cancelIndex = 0
+document.querySelector('.cancel').onclick = function() {
+        curStyle = 'cancel'
+        cancelIndex++
+        //    context.clearRect(0, 0, canvas.width, canvas.height)
+        var image = new Image();
+        console.log(image)
+        image.src = cancelList[cancelList.length - 1 - cancelIndex]
+            //    console.log(image)
+        image.onload = function() {
+                context.drawImage(image, 0, 0, image.width, image.height, 0, 0, canvas.width, canvas.weight);
+            }
+            //    console.log(cancelList.length)
+
+    }
+    //保存历史记录
+function saveImgHistory() {
+    cancelIndex = 0;
+    //    console.log(canvas)
+    var dataUrl = canvas.toDataURL();
+    //    console.log(canvas.toDataURL())
+    cancelList.push(cancelList);
+}
+//清空
+var clear = document.querySelector('.clear')
+clear.onclick = function() {
+    context.clearRect(0, 0, canvas.width, canvas.height)
+}
