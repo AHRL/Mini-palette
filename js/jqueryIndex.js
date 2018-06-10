@@ -1,4 +1,5 @@
 var curStyle = 'pencil';
+var eraserSize;
 //笔刷
 function getstyle(obj, attr) {
     return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj, null)[attr]; //通过三木运算符来获取当前style的属性  
@@ -64,6 +65,8 @@ var aEraser = document.querySelector('.eraser').querySelectorAll('img')
 for (var i = 0, len = aEraser.length; i < len; i++) {
     aEraser[i].index = i
     aEraser[i].onclick = function() {
+        curStyle = 'cancel'
+        eraserSize = 32 + this.index * 16
         canvas.style.cursor = 'url(./img/Square_' + (32 + this.index * 16) + 'px.ico),default'
     }
 }
@@ -71,26 +74,23 @@ for (var i = 0, len = aEraser.length; i < len; i++) {
 var cancelList = []
 var cancelIndex = 0
 document.querySelector('.cancel').onclick = function() {
-        curStyle = 'cancel'
         cancelIndex++
-        //    context.clearRect(0, 0, canvas.width, canvas.height)
+        context.clearRect(0, 0, canvas.width, canvas.height)
         var image = new Image();
-        console.log(image)
+        console.log(canvas.width)
         image.src = cancelList[cancelList.length - 1 - cancelIndex]
-            //    console.log(image)
+        console.log(cancelList.length - 1 - cancelIndex)
         image.onload = function() {
-                context.drawImage(image, 0, 0, image.width, image.height, 0, 0, canvas.width, canvas.weight);
-            }
-            //    console.log(cancelList.length)
+            console.log(image.width)
+            context.drawImage(image, 0, 0)
+        }
 
     }
     //保存历史记录
 function saveImgHistory() {
     cancelIndex = 0;
-    //    console.log(canvas)
     var dataUrl = canvas.toDataURL();
-    //    console.log(canvas.toDataURL())
-    cancelList.push(cancelList);
+    cancelList.push(dataUrl);
 }
 //清空
 var clear = document.querySelector('.clear')

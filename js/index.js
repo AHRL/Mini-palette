@@ -1,7 +1,7 @@
 var canvas = document.querySelector("#canvas");
 var context = canvas.getContext("2d");
 var WIDTH = document.body.clientWidth * 0.75,
-    HEIGHT = 660;
+    HEIGHT = 500;
 canvas.setAttribute("width", WIDTH);
 canvas.setAttribute("height", HEIGHT);
 canvas.style.width = WIDTH + "px";
@@ -66,6 +66,7 @@ window.onload = function() {
             case 'square':
                 break;
             case 'cancel':
+                context.clearRect(x, y - eraserSize, eraserSize, eraserSize)
                 break;
             default:
                 break;
@@ -95,6 +96,7 @@ window.onload = function() {
                 case 'square':
                     break;
                 case 'cancel':
+                    context.clearRect(s, t - eraserSize, eraserSize, eraserSize)
                     break;
                 default:
                     break;
@@ -102,9 +104,10 @@ window.onload = function() {
         }
 
     }, false)
-    document.addEventListener('mouseup', function() {
+    canvas.addEventListener('mouseup', function() {
         flag = 0;
         clearInterval(timer)
+        saveImgHistory()
     }, false)
 
 }
