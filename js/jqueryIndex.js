@@ -34,32 +34,16 @@ var reg = /^#[0-9a-fA-F]{6}$/
 var oColorInput = document.querySelector('.color').querySelector('input')
 var oColorSpan = document.querySelector('.color').querySelector('span')
 oColorInput.onblur = function() {
-        var val = this.value
-        if (reg.test(val)) {
-            context.fillStyle = val
-            context.strokeStyle = val
-            oColorSpan.style.display = 'none'
-        } else {
-            oColorSpan.style.display = 'block'
-        }
-    }
-    //图形板
-var aGraphImg = document.querySelector('.graph').querySelectorAll('img')
-var curGraph = []
-var graphFlag = 0
-for (var i = 0, len = aGraphImg.length; i < len; i++) {
-    aGraphImg[i].onclick = function() {
-        curStyle = i = 0 ? 'circle' : curStyle;
-        curStyle = i = 1 ? 'rectangle' : curStyle;
-        curStyle = i = 2 ? 'square' : curStyle;
-        var obj = context.drawImage(this, 100, 100)
-            // obj.disX = 0;
-            // obj.disY = 0;
-        console.log('a')
-        console.log(obj)
-        curGraph.push({ obj: obj, x: 100, y: 100 })
+    var val = this.value
+    if (reg.test(val)) {
+        context.fillStyle = val
+        context.strokeStyle = val
+        oColorSpan.style.display = 'none'
+    } else {
+        oColorSpan.style.display = 'block'
     }
 }
+
 //橡皮擦
 var aEraser = document.querySelector('.eraser').querySelectorAll('img')
 for (var i = 0, len = aEraser.length; i < len; i++) {
